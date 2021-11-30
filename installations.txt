@@ -1,0 +1,8 @@
+npm init
+npm install --save yarn
+yarn create react-app dapp 
+
+truffle init
+npm install @openzeppelin/contracts --save
+
+start chnaged truffle config...

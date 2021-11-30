@@ -1,0 +1,23 @@
+{
+  "name": "cookdapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pcanwar/cookdapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pcanwar/cookdapp/issues"
+  },
+  "homepage": "https://github.com/pcanwar/cookdapp#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.0",
+    "yarn": "^1.22.17"
+  }
+}
