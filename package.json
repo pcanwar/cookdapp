@@ -18,6 +18,7 @@
   "homepage": "https://github.com/pcanwar/cookdapp#readme",
   "dependencies": {
     "@openzeppelin/contracts": "^4.4.0",
+    "react-router-dom": "^6.0.2",
     "yarn": "^1.22.17"
   }
 }

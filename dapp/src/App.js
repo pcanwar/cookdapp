@@ -6,7 +6,7 @@ function App() {
     <div className="main__container">
       <div className="center__container">
         <NavLink to='/test'>
-          <button>Click me to go to test</button>
+          <button>Test</button>
         </NavLink>
       </div>
     </div>
