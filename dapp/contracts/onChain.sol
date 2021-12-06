@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT 
 pragma solidity ^0.8.0;
-
 import "./chainlink/interface/AggregatorV3Interface.sol";
 import "./uniswap/Interface/IUniswapV2Pair.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -19,12 +18,12 @@ contract onChain is Ownable {
         // require( address(_usdEth) != address(0) , "ZERO_ADDRESS");
         require( _pairAddress != address(0) , "ZERO_ADDRESS");
         pair = IUniswapV2Pair(_pairAddress);
-        usdETHPriceFeed = AggregatorV3Interface(0xdCA36F27cbC4E38aE16C4E9f99D39b42337F6dcf);
+        usdETHPriceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);
     }
 
     function getEthPriceFeed () external view returns (int) {
         (,int price,,,) = usdETHPriceFeed.latestRoundData();
-        return price / 1e18; // 10 ** 18
+        return price / 1e8; // 10 ** 8
     }
 
     // address :  0x7e8d0e1ad361eba94abc06898f52d9e2c4cda04b LP:: ETH-Dai

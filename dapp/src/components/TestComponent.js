@@ -33,12 +33,15 @@ export default function TestComponent() {
     const [clientContractInstance, setClientContractInstance] = useState(null);
     const [oracleContractInstance, setOracleContractInstance] = useState(null);
     const [onChainContractInstance, setOnChainContractInstance] = useState(null);
+    const [priceFeedLable, setPriceFeedLable] = useState(null);
+
 
     const [currentStatus, setCurrentStatus] = useState('')
     const [accountInout, setAccountInput] = useState('');
     // const [amountInput, setAmountInput] = useState('');
     const [pairAddress, setPairAddress] = useState('');
-    // const [priceLable, setPriceLable] = useState('');
+    const [priceLable, setPriceLable] = useState('');
+
     const [checkPirce, setCheckPirce] = useState('');
 
 
@@ -111,17 +114,19 @@ export default function TestComponent() {
     }
 
     async function getEthPriceFeed() {
-        await onChainContractInstance.methods.getEthPriceFeed().call().then(res=>{
-                console.log(res)
-        });
+        const priceFeedLable =  await onChainContractInstance.methods.getEthPriceFeed().call();
+        setPriceFeedLable(priceFeedLable);
     }
 
 
     async function getPrice(checkPirce) {
     try {
-        await onChainContractInstance.methods.getPrice(Number(checkPirce)).call().then(res=>{
-            console.log(res)
-        });
+        const priceLable = await onChainContractInstance.methods.getPrice(Number(checkPirce)).call();
+        // .then(res=>{
+        //     console.log(res)
+        // });
+        setPriceLable(priceLable);
+
     } catch (error){
         await onChainContractInstance.methods.getPrice(
             Number(checkPirce)).call(
@@ -130,7 +135,6 @@ export default function TestComponent() {
         // await onChainContractInstance.methods.getPrice(checkPirce).call().then(res=>{
         //     console.log(res)
         // });
-        // setPriceLable(priceLable);
 
 
     }
@@ -156,12 +160,13 @@ export default function TestComponent() {
             <div className='left__container'>
                 <button onClick={() => connectToWallet()}>Connect Wallet</button>
             </div>
-            {currentStatus}
+            {currentStatus} : {accounts[0]}
             <div>
             <hr></hr>
             <p>
                 <br></br>
                 <label> 
+                    Allow an account to update the price <br></br>
                 <button onClick={() => setAccount(accountInout)}>  Enter account 
                 </button>
                     : <input type="text" size="50"
@@ -175,11 +180,12 @@ export default function TestComponent() {
  
 
             <div>
-            <hr></hr>
+        
             <p>
                 <br></br>
+                
                 <label> 
-                <button onClick={() => updateData()}>  Update data  : 
+                <button onClick={() => updateData()}>  Update data  
                 </button>
                       
                 </label>
@@ -245,7 +251,7 @@ export default function TestComponent() {
                 <input type="text" pattern="[0-9]*" 
                     onChange={event => setCheckPirce(event.target.value)}>
                 </input>
-                     {/* is: {priceLable} */}
+                     is: {priceLable} USD.
                     
                 </label>
             </p>
@@ -262,7 +268,7 @@ export default function TestComponent() {
                 <button onClick={() => getEthPriceFeed()}>  ETH Price :
                 </button> 
               
-                     {/* is: {priceLable} */}
+                     is: {priceFeedLable}
                     
                 </label>
             </p>

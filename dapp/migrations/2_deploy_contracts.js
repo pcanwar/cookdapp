@@ -12,7 +12,7 @@ module.exports = async function (deployer, _network, address) {
   await deployer.deploy(Client, oracle.address);
   await Client.deployed();
 
-  const usdcETH = "0x34965ba0ac2451A34a0471F04CCa3F990b8dea27"
+  const usdcETH = "0x7e8d0e1ad361eba94abc06898f52d9e2c4cda04b"
     // await oracle.updateReporter(admin, true);
   await deployer.deploy(onChain, usdcETH);
   await onChain.deployed();
