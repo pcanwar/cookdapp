@@ -1,3 +1,16 @@
+const path = require("path");
+require('dotenv').config();
+
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+// not recommended
+const key = "f4308c97f5476b5b42f71509c50dd971fcdb29feee656b60155547d6e19ac5d5"
+const inf = "49dbd98c11a64ee391d51c0f7bee6f80"
+
+// recommended
+const infkey = process.env.ENDPOINT;
+const mnemonic = process.env.MNENOMIC;
+
+
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -42,11 +55,13 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    // development: {
-    //  host: "127.0.0.1",     // Localhost (default: none)
-    //  port: 8545,            // Standard Ethereum port (default: none)
-    //  network_id: "*",       // Any network (default: none)
-    // },
+    development: {
+     host: "127.0.0.1",     // Localhost (default: none)
+     port: 9545,            // Standard Ethereum port (default: none)
+     network_id: "*",       // Any network (default: none)
+     gasPrice: 100000000000,
+     gas: 6721975 // gas limit
+    },
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
@@ -72,12 +87,34 @@ module.exports = {
     // network_id: 2111,   // This network is yours, in the cloud.
     // production: true    // Treats this network as if it was a public net. (default: false)
     // }
+
+    matic: {
+      // provider: () => new HDWalletProvider(mnemonic, `https://polygon-mumbai.infura.io/v3/${infkey}`),
+      network_id: 137,       // mumbai's id
+      // gas: 5500000,        // it has a lower block limit than mainnet
+      // confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+      // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+      },
+    ropsten: { // 
+        provider: () => new HDWalletProvider(key, `https://ropsten.infura.io/v3/${inf}`),
+        network_id: 3,
+      },
+
+    rinkeby: { // 
+        provider: () => 
+        new HDWalletProvider(key, `https://rinkeby.infura.io/v3/${inf}`),
+        network_id: 4,
+      },
   },
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
     // timeout: 100000
   },
+
+
+  contracts_build_directory: path.join(__dirname, "/src/contracts"),
 
   // Configure your compilers
   compilers: {
