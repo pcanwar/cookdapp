@@ -1,22 +1,25 @@
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-    // 1- mint tokens
-    // 2- Approve amount of tokens from (ABC) contract to (Support) contract
+    // 1- deploy both ABC contract and Support contract.
+    // 2- mint utility tokens from ABC contract
+    // 3- In ABC contract you need to approve amount of tokens to (Support) contract address
 
 contract ABC is ERC20 {
     constructor() ERC20("M", "MM") {}
     function mint( uint256 amount) public  {
-        _mint(msg.sender, amount );
+        _mint(msg.sender, amount * 10 ** decimals());
+
     }
 }
 
-    // 1- Add a ABC contract address uing the add function on (Support) contract
-    // 2- On (Support) contract you can use sendtx to send  (ABC) tokens 
+
+    // 4- In on (Support) contract, you need to add a ABC contract address uing the add function, to support ABC utility tokens
+    // 2- In Support contract, you can use send function to send  (ABC) tokens to an address
 
 contract Support {
 
@@ -36,16 +39,29 @@ contract Support {
 
     function remove(IERC20 _contract) public {
         require(addr[_contract] == true);
-        addr[_contract] = true;
+        addr[_contract] = false;
     }
 
+    
+    /**
+     * @dev See SafeERC20 {afeApprove, safeTransferFrom}.
+     *
+     *
+     * Requirements:
+     *
+     * - you need to `_contract` and `to` cannot be the zero address.. 
+     * - `sender` must have a balance of at least `amount`.
+     * - the caller must have allowance for ``sender``'s tokens of at least `amount`.
+     */
     function send( IERC20 _contract, address to, uint sendAmount ) public supported( _contract) {
+        // require()
         // sell NFT/ create 
         // do something ... 
         IERC20 token = IERC20(_contract);
         token.safeApprove(address(this), sendAmount);
         token.safeTransferFrom(msg.sender, address(this), sendAmount);
         token.safeTransferFrom(address(this), to, sendAmount);
+        // 
 
     }
 

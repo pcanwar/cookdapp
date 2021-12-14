@@ -18,7 +18,7 @@ contract onChain is Ownable {
         // require( address(_usdEth) != address(0) , "ZERO_ADDRESS");
         require( _pairAddress != address(0) , "ZERO_ADDRESS");
         pair = IUniswapV2Pair(_pairAddress);
-        usdETHPriceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);
+        usdETHPriceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e); // from chainlink feed price site.
     }
 
     function getEthPriceFeed () external view returns (int) {
@@ -32,7 +32,6 @@ contract onChain is Ownable {
         require(address(pairAddress) != address(0), "ZERO_ADDRESS");
         pair = IUniswapV2Pair(pairAddress);
     }
-
     function getPrice(uint _amount) external view returns(uint){
         require(_amount > 0, "ZERO");
         IERC20Metadata tokenEthUsdc = IERC20Metadata(pair.token1());
