@@ -175,9 +175,6 @@ export default function TestComponent() {
             Number(checkPirce)).call(
                 {from: accounts[0]}).then().catch(revertReason => console.log({ revertReason }))
     }
-        // await onChainContractInstance.methods.getPrice(checkPirce).call().then(res=>{
-        //     console.log(res)
-        // });
 
 
     }
