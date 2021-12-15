@@ -32,6 +32,7 @@ contract onChain is Ownable {
         require(address(pairAddress) != address(0), "ZERO_ADDRESS");
         pair = IUniswapV2Pair(pairAddress);
     }
+    
     function getPrice(uint _amount) external view returns(uint){
         require(_amount > 0, "ZERO");
         IERC20Metadata tokenEthUsdc = IERC20Metadata(pair.token1());
